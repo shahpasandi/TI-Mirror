@@ -1,0 +1,182 @@
+# ─────────────────────────────────────────────────────────────
+# TI Mirror — Example Feed Configuration
+# ─────────────────────────────────────────────────────────────
+# Copy this file to feeds.yaml and replace placeholders with
+# your own credentials. NEVER commit feeds.yaml with real keys.
+# ─────────────────────────────────────────────────────────────
+
+feeds:
+
+  # ─── Threat Feeds (IP, simple) ─────────────────────────────
+
+  afta_ip:
+    url: "https://afta.gov.ir/uploads/IP/AFTA_IOC_IPs.txt"
+    filename: "afta_ip.txt"
+    enabled: true
+    notes: "AFTA — Iran national CERT IP feed"
+
+  emerging_threats_compromised_ips:
+    url: "https://rules.emergingthreats.net/blockrules/compromised-ips.txt"
+    filename: "emerging_threats_compromised_ips.txt"
+    enabled: true
+    transform: [strip_comments]
+    notes: "Emerging Threats compromised IPs"
+
+  emerging_threats_ip_blocklist:
+    url: "https://rules.emergingthreats.net/fwrules/emerging-Block-IPs.txt"
+    filename: "emerging_threats_ip_blocklist.txt"
+    enabled: true
+    transform: [strip_comments]
+    notes: "Emerging Threats firewall blocklist"
+
+  cins_army:
+    url: "https://cinsscore.com/list/ci-badguys.txt"
+    filename: "cins_army.txt"
+    enabled: true
+    notes: "CINS Army bad guys list"
+
+  blocklist_de:
+    url: "https://lists.blocklist.de/lists/all.txt"
+    filename: "blocklist_de.txt"
+    enabled: true
+    transform: [strip_comments]
+    notes: "Blocklist.de all attackers"
+
+  ipsum_l4:
+    url: "https://raw.githubusercontent.com/stamparm/ipsum/master/levels/4.txt"
+    filename: "ipsum_l4.txt"
+    enabled: true
+    transform: [strip_comments]
+    notes: "IPsum Level 4"
+
+  spamhaus_drop:
+    url: "https://www.spamhaus.org/drop/drop.txt"
+    filename: "spamhaus_drop.txt"
+    enabled: true
+    transform: [strip_semicolon, strip_inline_semicolon]
+    notes: "Spamhaus DROP (cleaned)"
+
+  binary_defense:
+    url: "https://www.binarydefense.com/banlist.txt"
+    filename: "binary_defense.txt"
+    enabled: true
+    transform: [strip_comments]
+    notes: "Binary Defense banlist"
+
+  feodo:
+    url: "https://feodotracker.abuse.ch/downloads/ipblocklist.csv"
+    filename: "feodo.csv"
+    enabled: true
+    keep_raw: true
+    transform: [feodo_extract_ip]
+    notes: "Feodo Tracker — botnet C2 IPs (CSV parsed)"
+
+  urlhaus:
+    url: "https://urlhaus-api.abuse.ch/v2/files/exports/YOUR_ABUSECH_AUTH_KEY/recent.csv"
+    filename: "urlhaus.txt"
+    enabled: true
+    transform: [strip_comments, urlhaus_extract_url]
+    notes: "URLhaus — recent malicious URLs (extracted column 3)"
+
+  malwarebazaar_hash:
+    url: "https://mb-api.abuse.ch/v2/files/exports/YOUR_ABUSECH_AUTH_KEY/recent.csv"
+    filename: "malwarebazaar_sha256.txt"
+    enabled: false
+    transform: [strip_comments]
+    notes: "MalwareBazaar SHA256 hashes (disabled — 403)"
+
+  sslbl_ssl:
+    url: "https://sslbl.abuse.ch/blacklist/sslblacklist.csv"
+    filename: "sslbl_certs.csv"
+    enabled: true
+    transform: [strip_comments]
+    notes: "Abuse.ch SSL Blacklist — certificates"
+
+  iblocklist_dshield:
+    url: "http://list.iblocklist.com/?list=YOUR_IBLOCKLIST_LIST_ID&fileformat=p2p&archiveformat=gz&username=YOUR_IBLOCKLIST_USERNAME&pin=YOUR_IBLOCKLIST_PIN"
+    filename: "iblocklist_dshield.txt"
+    enabled: true
+    decompress: gzip
+    accept_encoding: identity
+    transform: [strip_comments, extract_iblocklist]
+    notes: "I-BlockList — DShield"
+
+  iblocklist_bogon:
+    url: "http://list.iblocklist.com/?list=YOUR_IBLOCKLIST_LIST_ID&fileformat=p2p&archiveformat=gz&username=YOUR_IBLOCKLIST_USERNAME&pin=YOUR_IBLOCKLIST_PIN"
+    filename: "iblocklist_bogon.txt"
+    enabled: true
+    decompress: gzip
+    accept_encoding: identity
+    transform: [strip_comments, extract_iblocklist]
+    notes: "I-BlockList — Bogon"
+
+  iblocklist_hijacked:
+    url: "http://list.iblocklist.com/?list=YOUR_IBLOCKLIST_LIST_ID&fileformat=p2p&archiveformat=gz&username=YOUR_IBLOCKLIST_USERNAME&pin=YOUR_IBLOCKLIST_PIN"
+    filename: "iblocklist_hijacked.txt"
+    enabled: true
+    decompress: gzip
+    accept_encoding: identity
+    transform: [strip_comments, extract_iblocklist]
+    notes: "I-BlockList — Hijacked"
+
+  iblocklist_webexploit:
+    url: "http://list.iblocklist.com/?list=YOUR_IBLOCKLIST_LIST_ID&fileformat=p2p&archiveformat=gz&username=YOUR_IBLOCKLIST_USERNAME&pin=YOUR_IBLOCKLIST_PIN"
+    filename: "iblocklist_webexploit.txt"
+    enabled: true
+    decompress: gzip
+    accept_encoding: identity
+    transform: [strip_comments, extract_iblocklist]
+    notes: "I-BlockList — Web Exploit"
+
+  cisa_kev:
+    url: "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json"
+    filename: "cisa_kev.json"
+    enabled: true
+    notes: "CISA KEV — reference data"
+
+  icann_top_level_domain_list:
+    url: "https://data.iana.org/TLD/tlds-alpha-by-domain.txt"
+    filename: "icann_tlds.txt"
+    enabled: true
+    transform: [strip_comments]
+    notes: "ICANN top-level domains"
+
+  mozilla_public_suffix_list:
+    url: "https://publicsuffix.org/list/effective_tld_names.dat"
+    filename: "mozilla_public_suffix_list.dat"
+    enabled: true
+    transform: [strip_comments]
+    notes: "Mozilla public suffix list"
+
+  mitre_attack:
+    url: "https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json"
+    filename: "mitre_attack.json"
+    enabled: true
+    notes: "MITRE ATT&CK"
+
+  cisco_top_one_million_sites:
+    url: "https://s3-us-west-1.amazonaws.com/umbrella-static/top-1m.csv.zip"
+    filename: "cisco_top_1m.csv.zip"
+    enabled: true
+    notes: "Cisco Umbrella top 1M (ZIP)"
+
+  # ─── Disabled ──────────────────────────────────────────────
+
+  sans_block:
+    url: "https://isc.sans.edu/block.txt"
+    filename: "sans_block.txt"
+    enabled: false
+    notes: "SANS ISC (403)"
+
+  threatfox:
+    url: "https://threatfox-api.abuse.ch/v2/files/exports/YOUR_ABUSECH_AUTH_KEY/full.csv.zip"
+    filename: "threatfox_full.csv"
+    enabled: false
+    decompress: zip
+    notes: "ThreatFox (403)"
+
+  alexa_top_one_million_sites:
+    url: "https://s3.amazonaws.com/alexa-static/top-1m.csv.zip"
+    filename: "alexa_top_1m.csv.zip"
+    enabled: false
+    notes: "Alexa (discontinued)"
