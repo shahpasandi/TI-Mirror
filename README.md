@@ -86,7 +86,21 @@ cp config/feeds.example.yaml /opt/ti-mirror/feeds.yaml
 sudo nano /opt/ti-mirror/feeds.yaml
 ```
 
-> **Note:** Some feeds require authentication. Replace placeholders like `YOUR_ABUSECH_AUTH_KEY` and `YOUR_IBLOCKLIST_USERNAME`/`YOUR_IBLOCKLIST_PIN` with your own credentials. For I-BlockList, you must register at [iblocklist.com](https://www.iblocklist.com) and use your personalized download URLs.
+> ⚠️ **Important — Production Values Required**
+>
+> The example configuration (`feeds.example.yaml`) uses placeholders such as:
+>
+> - `YOUR_ABUSECH_AUTH_KEY`
+> - `YOUR_IBLOCKLIST_USERNAME`
+> - `YOUR_IBLOCKLIST_PIN`
+> - `YOUR_IBLOCKLIST_LIST_ID`
+>
+> **These placeholders must be replaced with real values before deployment.**
+>
+> - **abuse.ch Auth-Key:** Register at [auth.abuse.ch](https://auth.abuse.ch) to obtain your personal Auth-Key.
+> - **I-BlockList credentials:** Register at [iblocklist.com](https://www.iblocklist.com) and use your personalized download URLs (which include your username, PIN, and list IDs).
+>
+> **Never commit `feeds.yaml` with real credentials to a public repository.** Keep it out of version control (see `.gitignore`).
 
 ### 4. Run the downloader
 
@@ -103,13 +117,46 @@ cat /var/www/html/feeds/_metadata.json | python3 -m json.tool
 
 ### 5. Configure Nginx
 
-Create `/etc/nginx/sites-available/ti-mirror` with the configuration provided in the [Runbook](docs/RUNBOOK.md), then enable it:
+Create `/etc/nginx/sites-available/ti-mirror` with the following configuration. Replace placeholders with your real values:
+
+```nginx
+server {
+    listen 80;
+    server_name 192.0.2.10 ti.example.local;   # ← Replace with real IP / FQDN
+
+    location /feeds/ {
+        allow 192.0.2.20;                       # ← Replace with Splunk SH IP
+        deny all;
+
+        alias /var/www/html/feeds/;
+        autoindex on;
+        autoindex_exact_size off;
+        add_header Cache-Control "no-cache, must-revalidate";
+    }
+
+    location / {
+        deny all;
+    }
+}
+```
+
+Enable and reload:
 
 ```bash
 sudo ln -sf /etc/nginx/sites-available/ti-mirror /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo systemctl reload nginx
 ```
+
+> ⚠️ **Production Note**
+>
+> In production, replace:
+>
+> - `192.0.2.10` with your TI-Mirror server IP.
+> - `ti.example.local` with your internal DNS name.
+> - `192.0.2.20` with the Splunk ES Search Head IP.
+>
+> The ACL (`allow ...; deny all;`) is critical: it ensures only the Search Head can fetch feeds.
 
 ### 6. Schedule automatic refresh
 
@@ -161,19 +208,24 @@ For each feed, create a Data Source in Splunk ES:
 Configure > Data Enrichment > Threat Intelligence Management
 ```
 
-Refer to the [Runbook](docs/RUNBOOK.md) for the complete table of feeds, parsing rules, weights, and max-age settings.
+Use the following pattern. Replace the URL with your own TI-Mirror address.
 
 **Example (IP feeds):**
 
 | Field | Value |
 |---|---|
-| URL | `http://ti.khpc.local/feeds/feodo.csv` |
+| Name | `feodo_c2` |
+| URL | `http://ti.example.local/feeds/feodo.csv` |
 | Type | `IP_Intel` |
 | Parsing | `ip:$1` |
 | Weight | `80` |
 | Interval | `21600` (6 hours) |
 | Max Age | `-30d` |
 | Threat Intelligence | ✓ |
+
+> ⚠️ **Production Note**
+>
+> In production, replace `ti.example.local` with your TI-Mirror FQDN or IP. Make sure the Search Head can resolve and reach this address (via `/etc/hosts` or internal DNS).
 
 ---
 
@@ -183,6 +235,7 @@ Refer to the [Runbook](docs/RUNBOOK.md) for the complete table of feeds, parsing
 - **Restrict access with ACL.** The Nginx configuration should only allow the Splunk Search Head IP.
 - **Run as a dedicated user.** The downloader should run as a non-privileged user or via cron with appropriate permissions.
 - **Audit your feeds.** Regularly review `_metadata.json` and logs for failed downloads.
+- **Rotate credentials.** If you suspect a key leak, revoke it immediately at the provider (abuse.ch, iblocklist.com, etc.).
 
 ---
 
