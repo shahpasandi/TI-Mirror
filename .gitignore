@@ -1,0 +1,24 @@
+# Virtual environments
+venv/
+.env
+
+# Secrets
+config/feeds.yaml
+feeds.yaml
+
+# Logs
+*.log
+logs/
+
+# Python cache
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.raw
