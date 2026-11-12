@@ -39,7 +39,7 @@ Internet → TI-Mirror (Nginx + Python) → Splunk ES
 
 ## Features
 
-- Supports 20+ free TI feeds (Feodo, Spamhaus DROP, CINS, DShield, URLhaus, SSLBL, AFTA, I-BlockList, and more).
+- Supports 20+ free TI feeds (Feodo, Spamhaus DROP, CINS, DShield, URLhaus, SSLBL, I-BlockList, and more).
 - Handles gzip and zip transports automatically.
 - Per-feed transforms: comment stripping, CSV column extraction, range parsing.
 - Structured metadata (`_metadata.json`) for every run.
@@ -292,7 +292,7 @@ The **code** in this repository is licensed under the **Apache License 2.0**. Ho
 - **Terms:** CINS provides its blocklist for use in firewalls and security devices. While no explicit formal license was found in the search, it is intended for free use by the security community.
 - **Action Required:** No API key is needed.
 
-### Other Feeds (AFTA, I-BlockList, etc.)
+### Other Feeds (I-BlockList, etc.)
 - **Terms:** These sources have their own policies. Please refer to their respective websites for terms of use and licensing before deploying in a commercial environment.
 - **I-BlockList:** A free account is required to obtain personalized download URLs.
 
