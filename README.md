@@ -270,8 +270,6 @@ This project is licensed under the **Apache License 2.0**. See the [LICENSE](LIC
 
 ---
 
----
-
 ## Third-Party Data Sources & Terms
 
 The **code** in this repository is licensed under the **Apache License 2.0**. However, the **data** downloaded by this tool comes from third-party sources, each with its own terms of use. Users are responsible for reviewing and complying with these terms, especially for commercial use.
@@ -298,5 +296,6 @@ The **code** in this repository is licensed under the **Apache License 2.0**. Ho
 - **Terms:** These sources have their own policies. Please refer to their respective websites for terms of use and licensing before deploying in a commercial environment.
 - **I-BlockList:** A free account is required to obtain personalized download URLs.
 
+---
 
 **Built for SOC teams who value control, transparency, and air-gapped security.**
