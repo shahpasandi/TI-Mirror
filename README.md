@@ -270,4 +270,33 @@ This project is licensed under the **Apache License 2.0**. See the [LICENSE](LIC
 
 ---
 
+---
+
+## Third-Party Data Sources & Terms
+
+The **code** in this repository is licensed under the **Apache License 2.0**. However, the **data** downloaded by this tool comes from third-party sources, each with its own terms of use. Users are responsible for reviewing and complying with these terms, especially for commercial use.
+
+### abuse.ch (Feodo, URLhaus, SSLBL, MalwareBazaar, ThreatFox)
+- **Terms:** Access is provided free of charge for **non-commercial / non-profit** purposes, subject to fair use (query limits) and authentication (Auth-Key required) [citation:14].
+- **Commercial Use:** Organizations with commercial needs may require a paid subscription managed by Spamhaus. The community API is not licensed for use in commercial products/services [citation:2].
+- **Action Required:** You must obtain your own Auth-Key from [auth.abuse.ch](https://auth.abuse.ch).
+
+### Spamhaus DROP
+- **Terms:** The DROP list is provided **free of charge** for filtering malicious traffic [citation:3][citation:9].
+- **Restrictions:** The content is protected by copyright and database right. You may **not** use the "Spamhaus" name in any marketing, promotional, or commercial materials without permission [citation:3][citation:9].
+- **Action Required:** No API key is needed for the DROP list itself.
+
+### SANS ISC (DShield)
+- **Terms:** Data is shared under a **Creative Commons Non-Commercial Share-Alike** license. You may use and share the data as long as you **do not resell it** and you **give credit** to SANS ISC [citation:4].
+- **Action Required:** No API key is needed.
+
+### CINS Army
+- **Terms:** CINS provides its blocklist for use in firewalls and security devices. While no explicit formal license was found in the search, it is intended for free use by the security community.
+- **Action Required:** No API key is needed.
+
+### Other Feeds (AFTA, I-BlockList, etc.)
+- **Terms:** These sources have their own policies. Please refer to their respective websites for terms of use and licensing before deploying in a commercial environment.
+- **I-BlockList:** A free account is required to obtain personalized download URLs.
+
+
 **Built for SOC teams who value control, transparency, and air-gapped security.**
