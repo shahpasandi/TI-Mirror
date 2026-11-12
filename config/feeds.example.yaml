@@ -9,12 +9,6 @@ feeds:
 
   # ─── Threat Feeds (IP, simple) ─────────────────────────────
 
-  afta_ip:
-    url: "https://afta.gov.ir/uploads/IP/AFTA_IOC_IPs.txt"
-    filename: "afta_ip.txt"
-    enabled: true
-    notes: "AFTA — Iran national CERT IP feed"
-
   emerging_threats_compromised_ips:
     url: "https://rules.emergingthreats.net/blockrules/compromised-ips.txt"
     filename: "emerging_threats_compromised_ips.txt"
