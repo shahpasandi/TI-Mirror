@@ -72,7 +72,7 @@ TI-Mirror solves this with a minimal, transparent architecture:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/ti-mirror.git
+git clone https://github.com/shahpasandi/ti-mirror.git
 cd ti-mirror
 ```
 
