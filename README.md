@@ -24,14 +24,11 @@ TI-Mirror solves this with a minimal, transparent architecture:
 
 ## Architecture
 
-```
-Internet → TI-Mirror (Nginx + Python) → Splunk ES
-           │                             → Edge Firewall
-           ├── Downloads feeds via update_feeds.py
-           ├── Applies transforms & suppression rules
-           ├── Serves via Nginx (HTTP + HTTPS) with IP ACL
-           └── Refreshes every 6 hours via cron
-```
+
+<p align="center">
+  <img src="docs/diagram.svg" alt="TI-Mirror Architecture" width="80%">
+</p>
+
 
 **Key design decisions:**
 
