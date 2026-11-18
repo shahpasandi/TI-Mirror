@@ -1,0 +1,29 @@
+# ─────────────────────────────────────────────────────────────
+# TI Mirror — Example Suppression Configuration
+# Copy this file to suppression.yaml and edit as needed.
+# ─────────────────────────────────────────────────────────────
+
+allowlist:
+  ip:
+    - "10.0.0.0/8"
+    - "172.16.0.0/12"
+    - "192.168.0.0/16"
+  domain:
+    - "*.internal.company.local"
+  hash: []
+  url: []
+
+denylist:
+  ip: []
+  domain:
+    - "*.microsoft.com"
+    - "*.windowsupdate.com"
+  hash: []
+  url: []
+
+# CDN Feeds: These files will be treated as denylist sources.
+cdn_feeds:
+  - "cloudflare_ips"
+  - "aws_ips"
+  - "google_ips"
+  - "azure_ips"

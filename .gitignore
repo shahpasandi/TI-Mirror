@@ -1,0 +1,28 @@
+# Virtual environments
+venv/
+.env
+
+# Secrets (NEVER commit these)
+config/feeds.yaml
+config/suppression.yaml
+feeds.yaml
+suppression.yaml
+*.key
+*.pem
+
+# Logs
+*.log
+logs/
+
+# Python cache
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.raw
